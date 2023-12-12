@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>银行账户</title>
+    <style>
+
+    </style>
+</head>
+<body style="background-color: skyblue">
+
+<img src="../static/logo.jpg" style="margin-left: 640px; margin-top: 40px " >
+
+<div style="border-style: solid; margin-top: 40px; border-width:1px;
+        margin-left: 300px; margin-right: 300px;">
+<div>
+    <h2 style="text-align: center">账户信息</h2>
+    <div style="text-align: center">
+        <label for="accountNumber" style="font-size: 20px">账号:</label>
+        <input type="text" id="accountNumber">
+        <button onclick="getAccount()" >查询</button>
+    </div>
+    <div style="margin-left: 320px; margin-top: 15px">
+        <label for="balance" style="color: red; font-weight:bold; font-size:20px";>余额:</label>
+        <span id="balance" style="color: red; font-size: 20px"></span>
+    </div>
+</div>
+
+<!--<div style="text-align: center">-->
+<!--    <h2>取款</h2>-->
+<!--    <div>-->
+<!--        <label for="withdrawAmount" style="font-size: 20px">金额:</label>-->
+<!--        <input type="text" id="withdrawAmount">-->
+<!--        <button onclick="withdraw()">取款</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div style="text-align: center; margin-bottom: 40px">-->
+<!--    <h2>存款</h2>-->
+<!--    <div>-->
+<!--        <label for="depositAmount" style="font-size: 20px">金额:</label>-->
+<!--        <input type="text" id="depositAmount">-->
+<!--        <button onclick="deposit()">存款</button>-->
+<!--    </div>-->
+<!--</div>-->
+</div>
+
+<script>
+    // JavaScript代码
+    function getAccount() {
+        var accountNumber = document.getElementById("accountNumber").value;
+        // 发送GET请求获取账户信息
+        fetch("/account?accountId=" + accountNumber)
+            .then(response => response.json())
+            .then(data => {
+                if(JSON.stringify(data) == "0" ){
+                    alert("账户不存在！")
+                    document.getElementById("balance").textContent ="";
+                }else{
+                    document.getElementById("balance").textContent = data;
+                }
+            })
+            .catch(error => {
+                console.log("Error:", error);
+            });
+    }
+
+<!--    function withdraw() {-->
+<!--        var accountNumber = document.getElementById("accountNumber").value;-->
+<!--        var amount = document.getElementById("withdrawAmount").value;-->
+
+<!--        fetch("/withdraw?accountId=" + accountNumber + "&amount=" + amount)-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                document.getElementById("balance").textContent = data.balance;-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.log("Error:", error);-->
+<!--            });-->
+<!--    }-->
+
+<!--    function deposit() {-->
+<!--        var accountNumber = document.getElementById("accountNumber").value;-->
+<!--        var amount = document.getElementById("depositAmount").value;-->
+
+<!--        fetch("/deposit?accountId=" + accountNumber + "&amount=" + amount)-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                document.getElementById("balance").textContent = data.balance;-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.log("Error:", error);-->
+<!--            });-->
+<!--    }-->
+</script>
+</body>
+</html>

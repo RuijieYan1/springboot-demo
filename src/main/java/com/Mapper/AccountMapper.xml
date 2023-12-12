@@ -16,13 +16,13 @@
         name,balance
     </sql>
 
-    <select id="selectAccountById" resultType="com.Dto.Account">
+    <select id="selectAccountById" resultType="com.DTO.Account">
         select
         <include refid="accountField"></include>
         from account where id=#{id}
     </select>
 
-    <insert id="insertAccount" parameterType="com.Dto.Account">
+    <insert id="insertAccount" parameterType="com.DTO.Account">
         insert into account values (#{name},#{balance}) where id=#{id}
     </insert>
 
